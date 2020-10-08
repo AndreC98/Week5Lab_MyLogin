@@ -5,12 +5,14 @@
  */
 package Models;
 
+import java.io.Serializable;
+
 
 /**
  *
  * @author Andre
  */
-public class AccountService {
+public class AccountService implements Serializable{
     String username;
     String password;
     User user;
@@ -19,8 +21,11 @@ public class AccountService {
         this.username = username;
         this.password = password;
         
-        if(username == "abe" || username == "barb"){
-            User user = new User(this.username, null);
+        if("abe".equals(username) || "barb".equals(username)){
+            if("password".equals(password)){
+                user = new User(this.username, null);
+                return user;
+            }
         }
         return user;
     }
