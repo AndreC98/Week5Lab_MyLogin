@@ -18,6 +18,6 @@
             Password:<input type="text" name="password" value=${password}><br>
             <input type="submit" value="log In" name="logIn">
         </form>
-            <p>${errorMessage}</p>
+            <p>${message}</p>
     </body>
 </html>
