@@ -29,24 +29,34 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         String username = "";
         String password = "";
         int i = 0;
-        while(i == 0){
-                username = request.getParameter("username");
+        while (i == 0) {
+            username = request.getParameter("username");
+            if (username == null || username.length() == 0) {
+                request.setAttribute("errorMessage", "Username must not be blank!");
+                i = 1;
+            } else {
                 password = request.getParameter("password");
-                AccountService checker = new AccountService();
-                User user = checker.login(username, password);
-                    if(user == null){
+                if (password.length() <= 0) {
+                    request.setAttribute("errorMessage", "Password must not be blank!");
+                    i = 1;
+                } else {
+                    AccountService checker = new AccountService();
+                    User user = checker.login(username, password);
+                    if (user == null) {
                         request.setAttribute("errorMessage", "Error loading account information!");
                         i = 1;
-                    }
-                    else{
+                    } else {
                         request.setAttribute("errorMessage", "TEST");
                         i = 1;
                     }
+                }
+
             }
+        }
         getServletContext().getRequestDispatcher("/WEB-INF/login.jsp")
                 .forward(request, response);
     }
